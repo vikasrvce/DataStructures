@@ -1,0 +1,142 @@
+Miscellaneous Questions
+http://www.careercup.com/page?pid=linked-list-interview-questions
+
+1. Find the intersection of 2 linked lists (for ex a->b->c-d, m->b->c->d, b 
+is the intersection point.
+Sol: a) Use hash table (or mark visited nodes)
+     b) http://www.geeksforgeeks.org/archives/2405
+     
+2. Find and REMOVE a loop in a linked list (also proof of why it works. 'k' be size of loop. 'n' be distance b/n slow and fast. relative speed is 1. 
+so it takes k-n steps for them to meet)
+Sol: http://stackoverflow.com/questions/5607292/interview-remove-loop-in-linked-list-java
+
+3. Merge Sort using Linked List .. Write Java code for this.
+Sol: http://www.careercup.com/question?id=11208726
+
+4. Find middle, 1/3rd, 2/3rd nodes in a LL.
+Sol: a) Calculate length of LL in first traversal, and then traverse 2nd time to get the required elements
+     b) Use 3 pointers, a->next,b->next->next,c->next->next->next.
+     c) Copy to an array :)
+     
+5. Find 2nd and 3rd largest elements of an array in a single pass.
+Sol: a) use additional variables
+     b) if not a single pass, try Algorithm course method (randomized/deterministic)
+     
+6. Merge 2 sorted Lists. 
+Sol: a) Similar to array merge but without using extra memory
+     b) Recursive Solution (http://www.careercup.com/question?id=9208580)
+     
+7. Duplicate Element in a LinkedList/Array
+
+8. There is a linked list of numbers of length N. N is very large and you don't know N. 
+You have to write a function that will return k random numbers from the list. 
+Numbers should be completely random.
+Sol: Reservoir Sampling Algorithm
+
+9. find the maximum subsequence sum in a linked list. Consider the node as shown below.
+This node class has a extra item isVertex which determines whether the node is a vertex r not.
+so find the longest distance between any 2 vertex in the linked list.
+
+Node SLL{
+int data;
+Node n;
+bool isVertex;
+}
+http://www.careercup.com/question?id=3336665
+
+10. Given a linked list with two pointers in node structure where one points to the 
+next node and the other pointer points to some random node in the linked list. 
+Write a program to create a copy of this linked list
+Sol: http://www.geeksforgeeks.org/archives/1155
+
+
+11. Convert a binary search tree to a circular sorted linked list.
+The highest valued node should point to the lowest valued node at each step. ??
+
+12. Write code (in C) to convert a binary search tree into a sorted doubly linked list. 
+The algorithm should use recursion and should be done in place.
+
+13. Implement a Queue using 2 stacks and vice versa.
+http://stackoverflow.com/questions/69192/how-to-implement-a-queue-using-two-stacks
+
+14. Implement a Queue using Arrays
+
+15. https://docs.google.com/viewer?url=http://cslibrary.stanford.edu/105/LinkedListProblems.pdf&pli=1
+
+16. http://cslibrary.stanford.edu/110/BinaryTrees.html
+
+/************************************************************/
+1. Reverse Linked List using Recursion
+2. Deep Reverse for a Tree
+3. Change Count using Recursion
+4. Solve a+b+c+... = M
+5. Number of ways to split an Integer.
+6. Fibonacci in O(Logn).
+7. Nqueens Problem.
+8. List all the subsets of a set without repetition.
+9. Solve all the above problems in Java to output the actual solutions rather than just giving the number of solutions.
+10. A[i] = A[j]+A[k], for j,k < i. Q 3.16 Tamassia. or Q C-4.3 (sort the array. and then can be solved in O(n))
+11. Separate even and odd integers in an array. (logic similar to pivot in Quick Sort)
+12. Stack to reverse an array.
+13. Towers of Hanoi using Stack.
+14. Permutations using 1 stack and 1 Queue.
+Ans:
+Initially you have the letters on the stack in reverse order, and you have an empty queue:
+1. Repeatedly pop a value from the stack and enqueue it on the queue, stopping as soon
+as you pop a value that comes alphabetically before the one you just enqueued. Call that
+value the "pivot".
+2. Repeatedly dequeue a value and enqueue it, stopping as soon as you dequeue a
+value that comes alphabetically after the pivot. Push that value onto the stack.
+3. Enqueue the pivot, then repeatedly dequeue a value and enqueue it, stopping as soon
+as you dequeue a value that is alphabetically before the pivot. Push it onto the stack.
+4. Repeatedly dequeue a value from the queue and push it on the stack until the queue
+is empty
+
+15. Round Robin Using Queue.
+16. Array and Linked List Sorting using Stack/Queue.
+17. http://www.ardendertat.com/2012/01/09/programming-interview-questions/
+
+
+
+
+
+
+
+
+
+
+
+*******Trees*************
+
+1. Given the Pre-order of the BST .check if each non-leaf node has only one child.
+   Linear Time is expected.
+Soln: http://www.careercup.com/question?id=14453690
+
+2. Convert a BST to Doubly Linked List.
+
+Soln: Modify isBST function to pass minNode and maxNode. Try this.
+
+3. Give the level at which the BST is Complete. Try this.
+
+**4. InOrder, PreOrder, PostOrder and Find depth of a tree without using recursion.
+
+5. Given a Parent Array, find the height/depth of the tree.
+http://www.careercup.com/question?id=14241695
+
+6. Find the diameter of a tree
+Sol: http://www.careercup.com/question?id=13730794
+     http://www.cs.duke.edu/courses/spring00/cps100/assign/trees/
+     http://www.cs.duke.edu/courses/spring00/cps100/assign/trees/diameter.html
+     
+7. Find Lowest Common Ancestor and Range Minimum Query
+http://www.leetcode.com/2011/07/lowest-common-ancestor-of-a-binary-tree-part-i.html
+http://community.topcoder.com/tc?module=Static&d1=tutorials&d2=lowestCommonAncestor
+
+8. Given a binary tree, every node has a int value, return the root node of subtree 
+with the largest sum up value. Java is more preferable. Caution: the return should 
+be a node, not a integer!
+
+9.Check if a Tree is balanced? TODO
+
+10. Find Successor and Predecessor of a Node in a BinarySearchTree.
+BST in Cormen.

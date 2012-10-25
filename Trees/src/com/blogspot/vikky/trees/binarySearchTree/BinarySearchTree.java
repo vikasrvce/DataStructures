@@ -57,6 +57,71 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
 
 	/*
+	 * This uses BFS, explore using any of the 
+	 * DFS algorithms to get the max height
+	 */
+	private int maxHeightIterative(BSTNode node) {
+		if(node == null)
+			return 0;
+		
+		Queue<BSTNode> mQueue = new LinkedList<BSTNode>();
+		mQueue.offer(node);
+		mQueue.offer(null);
+		BSTNode temp = null;
+		int height = 0;
+		while(!mQueue.isEmpty()) {
+			temp = mQueue.remove();
+			
+			if(temp == null) {
+				if(!mQueue.isEmpty())
+					mQueue.offer(null);
+				height++;
+			} else {
+				if(temp.left != null)
+					mQueue.offer(temp.left);
+				
+				if(temp.right != null)
+					mQueue.offer(temp.right);
+			}
+		}
+		return height;
+ 	}
+	
+	public int diameter() {
+		return diameter(root);
+	}
+
+	/*
+	 * The complexity of this is O(n^2). A better solution 
+	 * of O(n) is to fetching the maxHeight of tree using 
+	 * references. Since Java Integer is Immutable, this is 
+	 * not possible. To implement this, we need a Integer like
+	 * class which has a 'setValue' function. (mutable). Refer
+	 * online for a solution.
+	 */
+	private int diameter(BSTNode node) {
+		if(node == null)
+			return 0;
+			
+		int lh = maxHeight(node.left);
+		int rh = maxHeight(node.right);
+		
+		int dl = diameter(node.left);
+		int dr = diameter(node.right);
+		
+		return (lh+rh+1) > (dl>dr?dl:dr) ? (lh+rh+1) : (dl>dr?dl:dr);
+	}
+	
+	/*
+	 * Few other properties can be calculated using iterative BFS
+	 * 1. Find the deepest node in a tree : the last node processed in BFS is the deepest
+	 * 2. Count the number of leaves/ print leaves: in BFS if (temp.right && temp.left == null)
+	 * 3. Similarly for finding full nodes, half nodes.
+	 * 4. Check if 2 trees are structurally similar : use either pre-order or post-order traversal
+	 */
+	
+	
+	/*
 	 * Counting the number of unique Binary Search Trees
 	 * that can be formed, for a given N
 	 * 
@@ -78,8 +143,17 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	 * ****************************** Insertion/Deletion ***************************
 	 */
 	
+	
 	public void clear() {
-		root = null;
+		clear(root);
+	}
+	
+	private void clear(BSTNode node) {
+		if(node == null)
+			return;
+		clear(node.left);
+		clear(node.right);
+		node = null;
 	}
 	
 	public void insert(T t) {
@@ -268,6 +342,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		Queue<BSTNode> mQueue = new LinkedList<BSTNode>();
 		mQueue.offer(root);
 		breadthFirstTraversal(mQueue);
+		
+		System.out.println("\nBreadthFirstTraversalIterative");
+		breadthFirstTraversalIterative(root);
 	}
 	
 	private void breadthFirstTraversal(Queue<BSTNode> mQueue) {
@@ -286,6 +363,30 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			mQueue.offer(node.right);
 		
 		breadthFirstTraversal(mQueue);
+	}
+	
+	private void breadthFirstTraversalIterative(BSTNode node) {
+		if(node == null)
+			return;
+		
+		Queue<BSTNode> mQueue = new LinkedList<BSTNode>();
+		BSTNode temp = node;
+		mQueue.offer(temp);
+		
+		while(!mQueue.isEmpty()) {
+			temp = mQueue.remove();
+			
+			if(temp.parent != null)
+				System.out.print("(" + temp.value + "," + temp.parent.value + "), ");
+			else
+				System.out.print("(" + temp.value + "," + "null" + "), ");
+			
+			if(temp.left != null)
+				mQueue.offer(temp.left);
+			
+			if(temp.right != null)
+				mQueue.offer(temp.right);
+		}
 	}
 	
 	public void preOrderTraversal() {
@@ -343,6 +444,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
 	
 	
+	/*
+	 * The other idea is to use parent field. This
+	 * way we do not need to use a stack
+	 */
 	private void inOrderTraversalIterative(BSTNode node) {
 		if(node == null)
 			return;
@@ -369,6 +474,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		postOrderTraversal(root);
 		System.out.println("\nPostOrderTraversalIterative");
 		postOrderTraversalIterative(root);
+		System.out.println("\nPostOrderTraversalIterativeSingleStack");
+		postOrderTraversalIterativeSingleStack(root);
 	}
 	
 	private void postOrderTraversal(BSTNode node) {
@@ -386,12 +493,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	 * it
 	 */
 	private void postOrderTraversalIterative(BSTNode node) {
+
+		if(node == null)
+			return;
+		
 		Stack<BSTNode> stk1 = new Stack<BSTNode>();
 		Stack<BSTNode> stk2 = new Stack<BSTNode>();
 		
 		stk1.push(node);
 		BSTNode temp = null;
-		
 		while(!stk1.isEmpty()) {
 			temp = stk1.pop();
 			stk2.push(temp);
@@ -406,6 +516,33 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			System.out.print(stk2.pop().value + ",");
 	}
 	
+	private void postOrderTraversalIterativeSingleStack(BSTNode node) {
+	
+		if(node == null)
+			return;
+		
+		Stack<BSTNode> stk = new Stack<BSTNode>();
+		stk.push(node);
+		BSTNode curr = null, prev = null;
+		
+		while(!stk.isEmpty()) {
+			curr = stk.pop();
+			if((curr.right != null && curr.right == prev) ||
+			   (curr.left != null && curr.left == prev)	||
+			   (curr.left == null && curr.right == null)) {
+				
+				System.out.print(curr.value + ",");
+			} else {
+				stk.push(curr);
+				if(curr.right != null)
+					stk.push(curr.right);
+				if(curr.left != null)
+					stk.push(curr.left);
+			}
+			prev = curr;
+		}
+	}
+
 	/*
 	 * 	********************* Balancing Trees ************************
 	 */

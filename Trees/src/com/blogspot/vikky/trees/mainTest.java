@@ -3,20 +3,59 @@ package com.blogspot.vikky.trees;
 import java.util.Random;
 
 import com.blogspot.vikky.trees.binarySearchTree.BinarySearchTree;
+import com.blogspot.vikky.trees.binaryTree.BinaryTree;
 
 public class mainTest {
 
 	public static void main(String[] args) {
 		BSTRun();
+		//BTRun();
 	}
 
+	public static void BTRun() {
+		BinaryTree<Integer> mTree = new BinaryTree<Integer>();
+	/*	mTree.insert(1);
+		mTree.insert(2);
+		mTree.insert(3);
+		mTree.insert(4);
+		mTree.insert(5);
+		mTree.insert(6);
+		
+		mTree.delete(1);
+		mTree.delete(6);*/
+		
+		generateRandomBinaryTree(mTree,10);
+		
+		mTree.delete(1);
+		mTree.delete(2);
+		mTree.delete(3);
+		mTree.delete(4);
+		mTree.delete(5);
+		mTree.delete(6);
+		
+		mTree.breadthFirstTraversal();
+		
+		mTree.insert(1);
+		mTree.insert(2);
+		mTree.insert(3);
+		mTree.insert(4);
+		mTree.insert(5);
+		mTree.insert(6);
+		
+		mTree.breadthFirstTraversal();
+		
+	}
 	public static void BSTRun() {
 		BinarySearchTree<Integer> mTree = new BinarySearchTree<Integer>();
 	
-		generateRandomTree(mTree, 10);
-		mTree.preOrderTraversal();
-		mTree.inOrderTraversal();
-		mTree.postOrderTraversal();
+		generateRandomBinarySearchTree(mTree, 10);
+		//mTree.preOrderTraversal();
+		//mTree.inOrderTraversal();
+		System.out.println("Tree Size = " + mTree.size());
+		System.out.println("Height of Tree = " + mTree.maxHeight());
+		//mTree.postOrderTraversal();
+	    System.out.println("Diameter of Tree = " + mTree.diameter());
+		mTree.breadthFirstTraversal();
 		/*mTree.recursiveInsert(1);
 		mTree.recursiveInsert(2);
 		mTree.recursiveInsert(3);
@@ -96,7 +135,7 @@ public class mainTest {
 	
 	/***************** Random Tree Input Generation and Testing ***************************/
 	
-	public static void generateRandomTree(BinarySearchTree<Integer> mTree, int size) {
+	public static void generateRandomBinarySearchTree(BinarySearchTree<Integer> mTree, int size) {
 		mTree.clear();
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(size);
@@ -104,6 +143,17 @@ public class mainTest {
 			int randomInt1 = randomGenerator.nextInt(size);
 			if(!mTree.search(randomInt1))
 				mTree.recursiveInsert(randomInt1);
+		}
+	}
+	
+	public static void generateRandomBinaryTree(BinaryTree<Integer> mTree, int size) {
+		mTree.clear();
+		Random randomGenerator = new Random();
+		int randomInt = randomGenerator.nextInt(size);
+		while(mTree.size() != randomInt) {
+			int randomInt1 = randomGenerator.nextInt(size);
+			if(!mTree.search(randomInt1))
+				mTree.insert(randomInt1);
 		}
 	}
 }
