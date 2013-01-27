@@ -155,49 +155,42 @@ public class LinkedListImpl<T> implements ListInterface <T>{
 	
 	public boolean hasLoop() {
 		
-		if(size == 0) 
-			throw new NullPointerException();
+		iNode slowRef = head.next;
+		iNode fastRef = head.next;
 		
-		iNode slowRef = head;
-		iNode fastRef = head;
-		
-		while(true) {
+		while(fastRef != null && fastRef.next != null) {
 			slowRef = slowRef.next;
-			
-			if(fastRef.next != null) 
-				fastRef = fastRef.next.next;
-			else
-				return false;
+			fastRef = fastRef.next.next;
 			
 			if(slowRef == fastRef)
 				return true;
-			else if(fastRef == null)
-				return false;
 		}
+		return false;
 	}
 	
 	public int getLoopStartIndex() {
-		if(!hasLoop())
-			return -1;
 
-		iNode slowRef = head;
-		iNode fastRef = head;
+		iNode slowRef = head.next;
+		iNode fastRef = head.next;
 		
-		while(true) {
+		while(fastRef != null && fastRef.next != null) {
 			slowRef = slowRef.next;
 			fastRef = fastRef.next.next;
+			
 			if(slowRef == fastRef)
 				break;
 		}
-
-		slowRef = head;
-		int cnt = -1;
+		
+		if(fastRef == null || fastRef.next == null)
+			return -1;
+		
+		slowRef = head.next;
+		int cnt = 0;
 		while(slowRef != fastRef) {
 			cnt++;
 			slowRef = slowRef.next;
 			fastRef = fastRef.next;
 		}
-		
 		return cnt;
 	}
 	
@@ -279,4 +272,12 @@ public class LinkedListImpl<T> implements ListInterface <T>{
 			temp = temp.next.next;
 		}
 	}
+	
+	public void partition(int key) {
+		
+	}
+	
+	/*
+	 * Merge Two linked lists
+	 */
 }

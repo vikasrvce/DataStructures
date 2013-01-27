@@ -1,9 +1,21 @@
 package com.blogspot.vikky.trees.binaryTree;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 public class BinaryTree<T extends Comparable<T>> {
+	
+	
+	public BinaryTree() {
+		
+	}
+	
+	public BinaryTree(List<T> preOrder, List<T> inOrder) {
+		constructTreePreIn(preOrder, inOrder);
+	}
+	
 	BTNode root = null;
 	private class BTNode {
 		T value;
@@ -46,6 +58,7 @@ public class BinaryTree<T extends Comparable<T>> {
 		return maxHeightIterative(root);
 	}
 	
+	@SuppressWarnings("unused")
 	private int maxHeight(BTNode node) {
 		if(node == null)
 			return 0;
@@ -278,5 +291,39 @@ public class BinaryTree<T extends Comparable<T>> {
 			mQueue.offer(node.right);
 		
 		breadthFirstTraversal(mQueue);
+	}
+	
+	private void constructTreePreIn(List<T> preOrder, List<T> inOrder) {
+		int i=0, j=0;
+		Stack<BTNode> stk = new Stack<BTNode>();
+		BTNode temp = null, prev = null;
+		boolean right = false;
+		
+		while(i<preOrder.size()) {
+			temp = new BTNode(preOrder.get(i), null);
+			stk.push(temp);
+			
+			if(i==0)
+				root = temp;
+			else if(!right) {
+				if(prev == null)
+					throw new RuntimeException("Invalid Input");
+				prev.left = temp;
+			} else {
+				if(prev == null)
+					throw new RuntimeException("Invalid Input");
+				prev.right = temp;
+			}
+			prev = temp;
+			right = false;
+	 
+			while((!stk.isEmpty()) && (stk.peek().value.equals(inOrder.get(j)))) {
+				prev = stk.pop();
+				j++;
+				right = true;
+			}
+			
+			i++;
+		}
 	}
 }

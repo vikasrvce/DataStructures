@@ -92,6 +92,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
 
 	/*
+	 * The diameter of a tree (sometimes called the width) is 
+	 * the number of nodes on the longest path between two
+	 * leaves in the tree.
 	 * The complexity of this is O(n^2). A better solution 
 	 * of O(n) is to fetching the maxHeight of tree using 
 	 * references. Since Java Integer is Immutable, this is 
@@ -148,6 +151,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		clear(root);
 	}
 	
+	/*
+	 * Post Order Traversal
+	 */
 	private void clear(BSTNode node) {
 		if(node == null)
 			return;

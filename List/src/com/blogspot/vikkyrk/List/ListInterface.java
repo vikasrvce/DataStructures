@@ -2,7 +2,7 @@ package com.blogspot.vikkyrk.List;
 
 import java.util.Iterator;
 
-public interface ListInterface<T> {
+public interface ListInterface<T> extends Iterable<T>{
 	public void add(T t);
 	public void add(T t, int index);
     public T remove(int index);

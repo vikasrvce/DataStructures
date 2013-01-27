@@ -6,8 +6,6 @@ public class mainTest {
 
 	public static void main(String[] args) {
 		LLRun();
-		LLSort ll = new LLSort();
-		ll.run();
 	}
 
 	public static void LLRun() {
@@ -56,10 +54,9 @@ public class mainTest {
 		//System.out.println("LoopStartIndex = " + ml.getLoopStartIndex());
 		//System.out.println("Nth element From last =  " + ml.getNthElementFromLast(5));
 		ml.printList();
-		System.out.println("IsPalindrome = " + ml.isPalindrome());
+		//System.out.println("IsPalindrome = " + ml.isPalindrome());
 		ml.reversePairwise();
 		//ml.reverseList(4);
-		
 		ml.printList();
 	}
 	
