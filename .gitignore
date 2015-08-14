@@ -12,6 +12,9 @@ tmp/**/*
 *~.nib
 *.xml
 *.mf
+*.iml
+*.iws
+*.ipr
 local.properties
 .classpath
 .settings/
